@@ -1,0 +1,12 @@
+<script>
+  let shift = Number(prompt("Enter shift"));
+  let string = Number(prompt("Enter ASCII code"));
+  if (string >= 65 && string <= 90) {
+    shift = shift % 26;
+    string += shift;
+  } else if (string >= 97 && string <= 122) {
+    shift = shift % 26;
+    string += shift;
+  } else alert("Does not compute...meep morp");
+  alert(string);
+</script>
