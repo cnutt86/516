@@ -1,12 +1,22 @@
 <script>
   let shift = Number(prompt("Enter shift"));
-  let string = Number(prompt("Enter ASCII code"));
-  if (string >= 65 && string <= 90) {
-    shift = shift % 26;
-    string += shift;
-  } else if (string >= 97 && string <= 122) {
-    shift = shift % 26;
-    string += shift;
-  } else alert("Does not compute...meep morp");
-  alert(string);
+  let string = prompt("Enter text");
+  let newString = "";
+  for (let i = 0; i < string.length; i++) {
+    let code = string.charCodeAt(i);
+    if (code >= 65 && code <= 90) {
+      shift = shift % 26;
+      code += shift;
+      let newChar = String.fromCharCode(code);
+      newString += newChar;
+    } else if (code >= 97 && code <= 122) {
+      shift = shift % 26;
+      code += shift;
+      let newChar = String.fromCharCode(code);
+      newString += newChar;
+    } else {
+      newString += string[i];
+    }
+  }
+  alert(newString);
 </script>
