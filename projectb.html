@@ -7,11 +7,21 @@
     if (code >= 65 && code <= 90) {
       shift = shift % 26;
       code += shift;
+      if (code > 90) {
+        code -= 26;
+      } else if (code < 65) {
+        code += 26;
+      }
       let newChar = String.fromCharCode(code);
       newString += newChar;
     } else if (code >= 97 && code <= 122) {
       shift = shift % 26;
       code += shift;
+      if (code > 122) {
+        code -= 26;
+      } else if (code < 97) {
+        code += 26;
+      }
       let newChar = String.fromCharCode(code);
       newString += newChar;
     } else {
