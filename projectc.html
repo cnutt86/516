@@ -1,0 +1,103 @@
+<script>
+  //helper function to generate random integer
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+</script>
+
+<script>
+  //setting sentence as constants
+  const allPrepSentences = {
+    at: [
+      "I looked ___ the sun.",
+      "Throw the ball ___ the wall.",
+      "I was ___ home yesterday.",
+      "I get up ___ 6:30 each day",
+      "Liz is good ___ tennis."
+    ],
+    in: [
+      "I am ___ London on vacation.",
+      "I live ___ Orem, Utah.",
+      "The coke is ___ the fridge",
+      "Heather invited me ___ her house.",
+      "We swam ___ the pool."
+    ],
+    on: [
+      "Jabba the Hutt should go ___ a diet.",
+      "Turn ___ the radio to listen to the new Wilco song.",
+      "Rey sat ___ the bench.",
+      "Han Solo put his blaster ___ the table.",
+      "The Millennium Falcon is ___ fire."
+    ],
+    with: [
+      "Lando agrees ___ me.",
+      "Leia is angry ___ Darth Vader.",
+      "Luke lives ___ uncle Ben.",
+      "Han is in love ___ Leia.",
+      "C-3PO is trembling ___ fear."
+    ],
+    from: [
+      "Han Solo is originally ___ Corellia",
+      "Keep away ___ Jabba the Hutt",
+      "Obi-Wan received a message ___ Leia",
+      "Luke got a lightsaber ___ Obi-Wan",
+      "Tatooine is very far ___ Endor."
+    ]
+  };
+  //initializing scores for prepositions
+  var worstPrep = "";
+  var prepScores = {
+    at: 0,
+    in: 0,
+    on: 0,
+    with: 0,
+    from: 0
+  };
+  var preps = ["at", "in", "on", "with", "from"];
+  var i = 0;
+  while (true) {
+    for (prep in prepScores) {
+      if (i == 0) {
+        var randomInt = getRandomInt(5);
+        worstPrep = preps[randomInt];
+      } else {
+        //if after first iteration
+        //code below converts list of objects into an array
+        var prepScoresArray = Object.values(prepScores);
+        //below determines smallest number in array and its position
+        var index = 0;
+        var value = prepScoresArray[0];
+        for (var n = 1; n < prepScoresArray.length; n++) {
+          if (prepScoresArray[n] < value) {
+            value = prepScoresArray[n];
+            index = n;
+          }
+        }
+        worstPrep = preps[index];
+      }
+      //random selection of sentences for lowest/worst preposition
+      for (prepSentences in allPrepSentences) {
+        if (prepSentences == worstPrep) {
+          var selectMySentence =
+            allPrepSentences[prepSentences][
+              Math.floor(Math.random() * allPrepSentences[prepSentences].length)
+            ];
+          var response = prompt(selectMySentence);
+          if (response == worstPrep) {
+            alert("Correct!");
+            prepScores[worstPrep]++;
+            //alert("the new prepSore = " + prepScores[worstPrep]);
+          } else {
+            prepScores[worstPrep]--;
+            //alert("the new prepScore = " + prepScores[worstPrep]);
+            var string = selectMySentence;
+            //alert(string);
+            var newString = string.replace("___", worstPrep);
+            alert("The correct answer is: " + newString);
+          }
+          i++;
+        }
+      }
+    }
+  }
+</script>
