@@ -1,0 +1,67 @@
+<p>Input:<br /><textarea id="input" rows="10" cols="80"></textarea></p>
+<p><button onclick="process()">Process</button></p>
+<p>
+  Output:<br /><textarea id="output" rows="10" cols="80"></textarea>
+
+  <script>
+    var counts = {};
+    var keys = [];
+    // this function will be invoked when the button is clicked
+    function process() {
+      // get input text, put it in the variable "x"
+      var x = document.getElementById("input").value;
+      var allWords = x;
+      //line below basically divides words at non-alphanumeric characters.
+      //This is a bit of a problem if we run into contractions, hyphenated words, etc.
+      var tokens = allWords.split(/\W+/);
+      //console.log(tokens);
+      var types = 0;
+      var tokens2 = 0;
+      for (var i = 0; i < tokens.length; i++) {
+        var word = tokens[i].toLowerCase();
+        //.test returns true if a match is found. Basically, if it is true
+        //that what we are looking at is not a digit, then the program continues as normal.
+        if (!/\d+/.test(word)) {
+          if (counts[word] == undefined) {
+            counts[word] = 1;
+            //code below adds the current word to the keys array
+            keys.push(word);
+            types += 1;
+            tokens2 += 1;
+          } else {
+            counts[word] = counts[word] + 1;
+            tokens2 += 1;
+          }
+        }
+      }
+      //console.log("the types are " + types);
+      //console.log("the tokens are " + tokens2);
+      keys.sort(compare);
+      //Function below makes it possible to order words in keys array by frequency
+      function compare(a, b) {
+        var countA = counts[a];
+        var countB = counts[b];
+        return countB - countA;
+      }
+      var typeTokenRatio = types / tokens2;
+      //console.log("The type token ratio is " + typeTokenRatio);
+      var y =
+        "Types: " +
+        types +
+        "; Tokens: " +
+        tokens2 +
+        "; TTR: " +
+        typeTokenRatio.toFixed(2) +
+        "\n" +
+        "\n" +
+        "Words in order of frequency: " +
+        "\n";
+      for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        y += key + " " + counts[key] + "\n";
+      }
+      // populate the output text box with the value of the variable "y"
+      document.getElementById("output").value = y;
+    }
+  </script>
+</p>
